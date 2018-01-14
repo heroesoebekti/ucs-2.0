@@ -96,11 +96,23 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
         if (isset($_GET['gmd'])) {
             $gmd = trim(strip_tags(urldecode($_GET['gmd'])));
         }
+
+        $colltype = '';
+        if (isset($_GET['colltype'])) {
+            $colltype = trim(strip_tags(urldecode($_GET['colltype'])));
+        }
+        
+        $location = '';
+        if (isset($_GET['location'])) {
+            $location = trim(strip_tags(urldecode($_GET['location'])));
+        }
+
         // UCS only
         $node = '';
         if (isset($_GET['node'])) {
             $node = trim(strip_tags(urldecode($_GET['node'])));
         }
+        
         // don't do search if all search field is empty
         if ($title || $author || $subject || $isbn || $gmd || $colltype || $location || $node) {
             $criteria = '';
