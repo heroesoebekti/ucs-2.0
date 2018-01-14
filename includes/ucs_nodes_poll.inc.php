@@ -68,5 +68,26 @@ class ucs_nodes_poll {
 	public static function set_node_poll($obj_db, $str_node_id, $str_node_ip) {
 		$_q = $obj_db->query("INSERT INTO nodes_poll VALUES (NULL, '$str_node_id', '$str_node_ip', NOW(), NULL, 1)");
 	}
+
+	/**
+	 * load client node from db
+	 * @param	object	$obj_db: database connection object
+	 * @return	array
+	 */
+	public static function loadNode($obj_db) {
+		$_q = $obj_db->query("SELECT * FROM node_client LIMIT 50");
+		if($_q->num_rows > 0){
+			while($node = $_q->fetch_array()){
+			 $node_client[$node['id']] = array(
+			 	'id' => $node['id'],
+			 	'name' => $node['name'],
+			 	'password' => $node['password'],
+			 	'baseurl' => $node['baseurl'],
+			 	'ip' => $node['ip']);
+			}
+		}
+		return $node_client;
+	}
+
 }
 ?>
