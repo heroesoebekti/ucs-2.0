@@ -75,7 +75,7 @@ class ucs_nodes_poll {
 	 * @return	array
 	 */
 	public static function loadNode($obj_db) {
-		$_q = $obj_db->query("SELECT * FROM node_client LIMIT 50");
+		$_q = $obj_db->query("SELECT * FROM nodes_client LIMIT 50");
 		if($_q->num_rows > 0){
 			while($node = $_q->fetch_array()){
 			 $node_client[$node['id']] = array(

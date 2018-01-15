@@ -127,9 +127,9 @@ require SIMBIO_BASE_DIR.'simbio.inc.php';
 // change below setting according to your database configuration
 define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
-define('DB_NAME', 'ucsdb');
-define('DB_USERNAME', 'ucsuser');
-define('DB_PASSWORD', 'password_ucsuser');
+define('DB_NAME', 'ucs');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
 
 // database connection file
 require 'dbc.inc.php';
@@ -290,6 +290,15 @@ $sysconf['index']['type'] = 'default'; // value can be 'default', 'index' OR 'sp
 
 // Include server configuration
 require 'ucserver.inc.php';
+
+//load node client from database
+require_once INC_DIR.'ucs_nodes_poll.inc.php';
+    $nodes_client = ucs_nodes_poll::loadNode($dbs);
+    if(isset($sysconf['node'])){
+        $sysconf['node'] = array_merge($nodes_client,$sysconf['node']);
+    }else{
+        $sysconf['node'] = $nodes_client;    
+    }
 
 // check if session is auto started and then destroy it
 if ($is_auto = @ini_get('session.auto_start')) { define('SESSION_AUTO_STARTED', $is_auto); }
