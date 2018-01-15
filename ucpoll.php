@@ -26,7 +26,7 @@ define('INDEX_AUTH', '1');
 require 'ucsysconfig.inc.php';
 require 'ucserver.inc.php';
 require LIB_DIR.'http_request.inc.php';
-require INC_DIR.'ucs_nodes_poll.inc.php';
+//require INC_DIR.'ucs_nodes_poll.inc.php';
 
 // check total node poll
 $total_conn = ucs_nodes_poll::check_poll($dbs);

@@ -33,7 +33,7 @@ require SIMBIO_BASE_DIR.'simbio_GUI/table/simbio_table.inc.php';
 require SIMBIO_BASE_DIR.'simbio_GUI/paging/simbio_paging.inc.php';
 require SIMBIO_BASE_DIR.'simbio_DB/datagrid/simbio_dbgrid.inc.php';
 require SIMBIO_BASE_DIR.'simbio_DB/simbio_dbop.inc.php';
-require INC_DIR.'ucs_nodes_poll.inc.php';
+//require INC_DIR.'ucs_nodes_poll.inc.php';
 
 // privileges checking
 $can_read = utility::havePrivilege('system', 'r');
