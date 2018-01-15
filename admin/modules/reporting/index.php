@@ -48,6 +48,7 @@ $stat_query = $dbs->query('SELECT COUNT(biblio_id) FROM biblio');
 $stat_data = $stat_query->fetch_row();
 $collection_stat['<h2>'.__('Total Titles').'</h2>'] = '<h2>'.$stat_data[0].'</h2>';
 
+$limit = 5;
 
 // total titles by GMD/medium
 $stat_query = $dbs->query('SELECT gmd_name, COUNT(biblio_id) AS total_titles
@@ -82,7 +83,7 @@ $collection_stat[__('10 Top Language')] = $stat_data;
 $stat_query = $dbs->query('SELECT publisher_name, COUNT(biblio_id) 
 	FROM mst_publisher AS mp 
 	LEFT JOIN biblio AS b ON mp.publisher_id = b.publisher_id
-    GROUP BY mp.publisher_id ORDER BY COUNT(b.biblio_id) DESC LIMIT 0,10');
+    GROUP BY mp.publisher_id ORDER BY COUNT(b.biblio_id) DESC LIMIT 0,'.$limit);
 $stat_data = '<ul>';
 //$stat_data .= '<div class="chartLink"><a class="notAJAX openPopUp" href="'.MODULES_WEB_ROOT_DIR.'reporting/charts_report.php?chart=total_title_gmd" width="700" height="470" title="'.__('Total Titles By Medium/GMD').'">'.__('Show in chart/plot').'</a></div>';
 
@@ -95,7 +96,7 @@ $collection_stat[__('10 Top Publisher')] = $stat_data;
 // total titles by publisher
 $stat_query = $dbs->query('SELECT publish_year, COUNT(biblio_id) 
 	FROM  biblio AS b 
-    GROUP BY b.publish_year ORDER BY COUNT(b.biblio_id) DESC LIMIT 0,10');
+    GROUP BY b.publish_year ORDER BY COUNT(b.biblio_id) DESC LIMIT 0,'.$limit);
 //$stat_data .= '<div class="chartLink"><a class="notAJAX openPopUp" href="'.MODULES_WEB_ROOT_DIR.'reporting/charts_report.php?chart=total_title_gmd" width="700" height="470" title="'.__('Total Titles By Medium/GMD').'">'.__('Show in chart/plot').'</a></div>';
 $stat_data = '<ul>';
 while ($data = $stat_query->fetch_row()) {
@@ -103,6 +104,34 @@ while ($data = $stat_query->fetch_row()) {
 }
 $stat_data .= '</ul>';
 $collection_stat[__('10 Top Publish Year')] = $stat_data;
+
+// total titles by author
+$stat_query = $dbs->query('SELECT ma.author_name, COUNT(ba.author_id) 
+	FROM  biblio AS b LEFT JOIN biblio_author ba ON b.biblio_id=ba.biblio_id
+	LEFT JOIN mst_author AS ma ON ma.author_id=ba.author_id
+    GROUP BY ma.author_id ORDER BY COUNT(ba.author_id) DESC LIMIT 0,'.$limit);
+//$stat_data .= '<div class="chartLink"><a class="notAJAX openPopUp" href="'.MODULES_WEB_ROOT_DIR.'reporting/charts_report.php?chart=total_title_gmd" width="700" height="470" title="'.__('Total Titles By Medium/GMD').'">'.__('Show in chart/plot').'</a></div>';
+$stat_data = '<ul>';
+while ($data = $stat_query->fetch_row()) {
+    $stat_data .= '<li><strong>'.$data[0].'</strong> : '.$data[1].'</li>';
+}
+$stat_data .= '</ul>';
+$collection_stat[__('10 Top Author')] = $stat_data;
+
+
+// total titles by topic
+$stat_query = $dbs->query('SELECT mt.topic, COUNT(bt.topic_id) 
+	FROM  biblio AS b 
+	LEFT JOIN biblio_topic bt ON b.biblio_id=bt.biblio_id
+	LEFT JOIN mst_topic AS mt ON mt.topic_id=bt.topic_id
+    GROUP BY mt.topic_id ORDER BY COUNT(bt.topic_id) DESC LIMIT 0,'.$limit);
+//$stat_data .= '<div class="chartLink"><a class="notAJAX openPopUp" href="'.MODULES_WEB_ROOT_DIR.'reporting/charts_report.php?chart=total_title_gmd" width="700" height="470" title="'.__('Total Titles By Medium/GMD').'">'.__('Show in chart/plot').'</a></div>';
+$stat_data = '<ul>';
+while ($data = $stat_query->fetch_row()) {
+    $stat_data .= '<li><strong>'.$data[0].'</strong> : '.$data[1].'</li>';
+}
+$stat_data .= '</ul>';
+$collection_stat[__('10 Top Topics')] = $stat_data;
 
 // popular client
 $stat_query = $dbs->query('SELECT nc.name, COUNT(b.orig_biblio_id) FROM biblio AS b
