@@ -135,7 +135,7 @@ $collection_stat[__('10 Top Topics')] = $stat_data;
 
 // popular client
 $stat_query = $dbs->query('SELECT nc.name, COUNT(b.orig_biblio_id) FROM biblio AS b
-    LEFT JOIN node_client AS nc ON nc.id=b.node_id
+    LEFT JOIN nodes_client AS nc ON nc.id=b.node_id
     GROUP BY b.node_id ORDER BY COUNT(b.orig_biblio_id) DESC LIMIT 10');
 $stat_data = '<ul>';
 while ($data = $stat_query->fetch_row()) {

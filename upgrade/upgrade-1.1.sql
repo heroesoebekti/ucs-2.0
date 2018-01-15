@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `node_client`;
-CREATE TABLE `node_client` (
+DROP TABLE IF EXISTS `nodes_client`;
+CREATE TABLE `nodes_client` (
   `id` varchar(20) NOT NULL,
   `name` varchar(30) NOT NULL,
   `password` varchar(64) NOT NULL,

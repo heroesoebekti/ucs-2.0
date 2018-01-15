@@ -28,3 +28,8 @@ $menu[] = array(__('Subject'), MODULES_WEB_ROOT_DIR.'master_file/topic.php', __(
 $menu[] = array(__('Place'), MODULES_WEB_ROOT_DIR.'master_file/place.php', __('Place Name'));
 $menu[] = array(__('Doc. Language'), MODULES_WEB_ROOT_DIR.'master_file/doc_language.php', __('Document Content Language'));
 $menu[] = array(__('Frequency'), MODULES_WEB_ROOT_DIR.'master_file/frequency.php', __('Frequency'));
+// only administrator have privileges for below menus
+if ($_SESSION['uid'] == 1) {
+	$menu[] = array('Header', __('Client'));
+    $menu[] = array(__('Nodes Client'), MODULES_WEB_ROOT_DIR.'master_file/nodes_client.php', __('Configure Nodes Client'));
+}
