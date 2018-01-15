@@ -400,6 +400,26 @@ CREATE TABLE IF NOT EXISTS `nodes_poll` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `node_client`
+--
+
+CREATE TABLE IF NOT EXISTS `node_client` (
+  `id` varchar(20) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `baseurl` varchar(64) NOT NULL,
+  `ip` varchar(32) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `node_client`
+--
+
+INSERT INTO `node_client` (`id`, `name`, `password`, `baseurl`, `ip`) VALUES
+('slims-node', 'SLiMS Library', '2325f677e21c1613909c953eb03c57352259cc5d', 'http://localhost/cendana/', NULL);
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `search_biblio`
 --
 
